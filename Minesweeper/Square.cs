@@ -9,8 +9,8 @@ namespace Minesweeper
 {
     public class Square
     {
-        public int row { get; set; }
-        public int col { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public bool mine { get; set; }
         public bool uncovered { get; set; }
         public bool flagged { get; set; }
@@ -20,10 +20,10 @@ namespace Minesweeper
 
 
         // Constructor to set square properties
-        public Square(int r, int c)
+        public Square(int x, int y)
         {
-            row = r;
-            col = c;
+            X = x;
+            Y = y;
             mine = false;
             uncovered = false;
             flagged = false;
@@ -32,7 +32,7 @@ namespace Minesweeper
 
         public void Click()
         {
-            Console.WriteLine("You clicked on me " + row + ":" + col);
+            Console.WriteLine("You clicked on me " + X + ":" + Y);
         }
     }
 }

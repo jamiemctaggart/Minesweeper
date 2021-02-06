@@ -16,7 +16,7 @@ namespace Minesweeper
         static Grid grid = new Grid(16, 16);
 
         // 2D array for Button objects
-        public Button[,] btnGrid = new Button[grid.Rows,grid.Columns];
+        public Button[,] btnGrid = new Button[grid.X,grid.Y];
 
 
 
@@ -28,27 +28,27 @@ namespace Minesweeper
 
         private void populate()
         {
-            int btnSize = 36;
-            panel1.Height = btnSize * grid.Columns;
-            panel1.Width = btnSize * grid.Rows;
+            int btnSize = 24;
+            panel1.Height = btnSize * grid.Y;
+            panel1.Width = btnSize * grid.X;
 
             //Print buttons to screen and assign values
-            for (int r = 0; r < grid.Rows; r++)
+            for (int x = 0; x < grid.X; x++)
             {
-                for (int c = 0; c < grid.Columns; c++)
+                for (int y = 0; y < grid.Y; y++)
                 {
-                    btnGrid[r, c] = new Button();
-                    btnGrid[r, c].Height = btnSize;
-                    btnGrid[r, c].Width = btnSize;
+                    btnGrid[x, y] = new Button();
+                    btnGrid[x, y].Height = btnSize;
+                    btnGrid[x, y].Width = btnSize;
                     //Click Event
-                    btnGrid[r, c].Click += Square_Click;
+                    btnGrid[x, y].Click += Square_Click;
 
-                    panel1.Controls.Add(btnGrid[r, c]);
+                    panel1.Controls.Add(btnGrid[x, y]);
 
-                    btnGrid[r, c].Location = new Point(r * btnSize, c * btnSize);
+                    btnGrid[x, y].Location = new Point(x * btnSize, y * btnSize);
                     //TODO remove this text soon
-                    btnGrid[r, c].Text = r + ":" + c;
-                    btnGrid[r, c].Tag = new Point(r, c);
+                    //btnGrid[x, y].Text = x + ":" + y;
+                    btnGrid[x, y].Tag = new Point(x, y);
                 }
 
             }
@@ -64,10 +64,10 @@ namespace Minesweeper
             //Casts as a point as it will always be a point
             Point point = (Point)btn.Tag;
 
-            int r = point.X;
-            int c = point.Y;
+            int x = point.X;
+            int y = point.Y;
 
-            grid.ClickSquare(r, c);
+            grid.ClickSquare(x, y);
         }
     }
 }

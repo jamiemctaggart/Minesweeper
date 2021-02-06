@@ -9,8 +9,8 @@ namespace Minesweeper
 {
     public class Grid
     {
-        public int Rows { get; set; }
-        public int Columns { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         
         public Square[,] GameGrid { get; set; }
 
@@ -18,19 +18,19 @@ namespace Minesweeper
 
 
         // Constructor used to set the lenght and width of the grid then calls the superconstructor
-        public Grid(int rows, int columns)
+        public Grid(int xParam, int yParam)
         {
-            Columns = rows;
-            Rows = columns;
+            X = xParam;
+            Y = yParam;
             Console.WriteLine("It made it to the base constructor");
-            GameGrid = new Square[Rows, Columns];
+            GameGrid = new Square[X, Y];
 
             // Fills array with Squares
-            for (int r = 0; r < Rows; r++)
+            for (int x = 0; x < X; x++)
             {
-                for (int c = 0; c < Columns; c++)
+                for (int y = 0; y < Y; y++)
                 {
-                    GameGrid[r, c] = new Square(r, c);
+                    GameGrid[x, y] = new Square(x, y);
                 }
             }
 
@@ -44,11 +44,11 @@ namespace Minesweeper
         //This adds the button object to each square
         internal void Merge(Button[,] btnGrid)
         {
-            for (int r = 0; r < Rows; r++)
+            for (int x = 0; x < X; x++)
             {
-                for (int c = 0; c < Columns; c++)
+                for (int y = 0; y < Y; y++)
                 {
-                    GameGrid[r, c].btn = btnGrid[r, c];
+                    GameGrid[x, y].btn = btnGrid[x, y];
                 }
             }
         }
