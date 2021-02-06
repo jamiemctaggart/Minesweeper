@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,18 @@ namespace Minesweeper
                     //TODO remove this text soon
                     //btnGrid[x, y].Text = x + ":" + y;
                     btnGrid[x, y].Tag = new Point(x, y);
+
+                    //Format button nicely
+                    btnGrid[x, y].TabStop = false;
+                    btnGrid[x, y].FlatStyle = FlatStyle.Flat;
+                    btnGrid[x, y].FlatAppearance.BorderSize = 0;
+
+                    //TODO add image to button
+                    btnGrid[x, y].Image = Image.FromFile(
+                        Path.Combine(
+                            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                            "Photos\\Square.png")
+                        );
                 }
 
             }
