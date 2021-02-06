@@ -48,14 +48,26 @@ namespace Minesweeper
                     btnGrid[r, c].Location = new Point(r * btnSize, c * btnSize);
                     //TODO remove this text soon
                     btnGrid[r, c].Text = r + ":" + c;
+                    btnGrid[r, c].Tag = new Point(r, c);
                 }
 
             }
+
+            //After creating all the buttons call the grid functiont to merge them with each square object
+            grid.Merge(btnGrid);
         }
 
         private void Square_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //casts as a Button as it will always be a button object
+            Button btn = (Button)sender;
+            //Casts as a point as it will always be a point
+            Point point = (Point)btn.Tag;
+
+            int r = point.X;
+            int c = point.Y;
+
+            grid.ClickSquare(r, c);
         }
     }
 }

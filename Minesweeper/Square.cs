@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Minesweeper
 {
@@ -14,6 +15,9 @@ namespace Minesweeper
         public bool uncovered { get; set; }
         public bool flagged { get; set; }
 
+        public Button btn { get; set; }
+
+
 
         // Constructor to set square properties
         public Square(int r, int c)
@@ -23,6 +27,12 @@ namespace Minesweeper
             mine = false;
             uncovered = false;
             flagged = false;
+            btn = new Button();
+        }
+
+        public void Click()
+        {
+            Console.WriteLine("You clicked on me " + row + ":" + col);
         }
     }
 }

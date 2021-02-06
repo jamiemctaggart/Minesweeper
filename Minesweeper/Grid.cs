@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Minesweeper
 {
@@ -15,9 +16,12 @@ namespace Minesweeper
 
 
 
-        // Constructor to make the grid out of squares
-        public Grid()
+
+        // Constructor used to set the lenght and width of the grid then calls the superconstructor
+        public Grid(int rows, int columns)
         {
+            Columns = rows;
+            Rows = columns;
             Console.WriteLine("It made it to the base constructor");
             GameGrid = new Square[Rows, Columns];
 
@@ -29,14 +33,24 @@ namespace Minesweeper
                     GameGrid[r, c] = new Square(r, c);
                 }
             }
+
         }
 
-        //TODO check to make sure the base() works properly at some point
-        // Constructor used to set the lenght and width of the grid then calls the superconstructor
-        public Grid(int rows, int columns) : base()
+        internal void ClickSquare(int r, int c)
         {
-            Columns = rows;
-            Rows = columns;
+            GameGrid[r, c].Click();
+        }
+
+        //This adds the button object to each square
+        internal void Merge(Button[,] btnGrid)
+        {
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    GameGrid[r, c].btn = btnGrid[r, c];
+                }
+            }
         }
     }
 }
