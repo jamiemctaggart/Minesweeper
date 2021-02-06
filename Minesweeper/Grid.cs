@@ -5,6 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// <summary>
+/// Difficulties
+///           Dimention:Mines
+/// Easy        :   9x9:10
+/// Intermediate: 16x16:40
+/// Expert      : 16x30:99
+/// </summary>
+
 namespace Minesweeper
 {
     public class Grid
@@ -12,22 +20,22 @@ namespace Minesweeper
         public int X { get; set; }
         public int Y { get; set; }
         public int flagsPlaced { get; set; }
-        
+        public int mines { get; set; }
         public Square[,] GameGrid { get; set; }
 
 
 
 
         // Constructor used to set the lenght and width of the grid then calls the superconstructor
-        public Grid(int xParam, int yParam)
+        public Grid(int xParam, int yParam, int minesParam)
         {
             X = xParam;
             Y = yParam;
             flagsPlaced = 0;
+            mines = minesParam;
             GameGrid = new Square[X, Y];
             populateGrid();
-           
-
+            populateMines();
         }
 
         public void populateGrid()
@@ -39,6 +47,18 @@ namespace Minesweeper
                 {
                     GameGrid[x, y] = new Square(x, y);
                 }
+            }
+        }
+
+        public void populateMines()
+        {
+            Random rnd = new Random();
+            int minesToPlace = mines;
+            while (minesToPlace > 0)
+            {
+                int x = rnd.Next(X);
+                int y = rnd.Next(Y);
+                if (GameGrid[x, y].PlaceMine()) minesToPlace--;
             }
         }
 

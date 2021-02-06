@@ -14,10 +14,10 @@ namespace Minesweeper
     public partial class Form1 : Form
     {
 
-        static Grid grid = new Grid(16, 16);
+        Grid grid;
 
         // 2D array for Button objects
-        public Button[,] btnGrid = new Button[grid.X,grid.Y];
+        public Button[,] btnGrid;
 
 
         public Form1()
@@ -29,6 +29,9 @@ namespace Minesweeper
 
         private void populate()
         {
+            grid = new Grid(16, 16, 40);
+            btnGrid = new Button[grid.X,grid.Y];
+
             int btnSize = 24;
             panel1.Height = btnSize * grid.Y;
             panel1.Width = btnSize * grid.X;

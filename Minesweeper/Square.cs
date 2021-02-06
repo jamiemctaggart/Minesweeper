@@ -34,7 +34,9 @@ namespace Minesweeper
         //Returns true if you hit a mine
         public bool Click()
         {
-            if (uncovered) return false;
+            Console.WriteLine("You clicked on me " + X + ":" + Y);
+            if (uncovered || flagged) return false;
+            uncovered = true;
             if (mine)
             {
                 btn.Image = Image.FromFile(Path.Combine(
@@ -49,7 +51,6 @@ namespace Minesweeper
                     "Photos\\Empty.png"));
                 return false;
             }
-            Console.WriteLine("You clicked on me " + X + ":" + Y);
         }
 
         // returns the change in flags place, if removed -1, if added +1 if unchanged 0
@@ -77,6 +78,15 @@ namespace Minesweeper
                     "Photos\\Flag.png"));
                 return 1;
             }
+        }
+
+        // Places a mine 
+        // If there is already a mine there it returns flase to avoid duplicates!
+        public bool PlaceMine()
+        {
+            if (mine) return false;
+            mine = true;
+            return true;
         }
     }
 }
