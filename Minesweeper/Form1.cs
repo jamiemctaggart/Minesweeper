@@ -20,11 +20,11 @@ namespace Minesweeper
         public Button[,] btnGrid = new Button[grid.X,grid.Y];
 
 
-
         public Form1()
         {
             InitializeComponent();
             populate();
+
         }
 
         private void populate()
@@ -42,8 +42,11 @@ namespace Minesweeper
                     btnGrid[x, y].Height = btnSize;
                     btnGrid[x, y].Width = btnSize;
                     //Click Event
-                    btnGrid[x, y].Click += Square_Click;
+                    //For some unknown reason it needs to mouseup otherwise right click wont work
+                    //This took me about half an hour to figure out lmao
+                    btnGrid[x, y].MouseUp += new MouseEventHandler(Square_Click);
 
+                    //Add button to panel
                     panel1.Controls.Add(btnGrid[x, y]);
 
                     btnGrid[x, y].Location = new Point(x * btnSize, y * btnSize);
@@ -70,17 +73,32 @@ namespace Minesweeper
             grid.Merge(btnGrid);
         }
 
-        private void Square_Click(object sender, EventArgs e)
+        private void Square_Click(object sender, MouseEventArgs e)
         {
-            //casts as a Button as it will always be a button object
+            //casts as a Button
             Button btn = (Button)sender;
+
             //Casts as a point as it will always be a point
             Point point = (Point)btn.Tag;
 
             int x = point.X;
             int y = point.Y;
 
-            grid.ClickSquare(x, y);
+            switch(e.Button)
+            {
+                case MouseButtons.Left:
+                    grid.ClickSquare(x, y);
+                    break;
+                case MouseButtons.Right:
+                    grid.FlagSquare(x, y);
+                    //TODO update flags remaining after implementing mines
+                    break;
+
+            }
+
+                       
+           
+            
         }
     }
 }

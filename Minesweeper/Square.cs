@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +20,6 @@ namespace Minesweeper
         public Button btn { get; set; }
 
 
-
         // Constructor to set square properties
         public Square(int x, int y)
         {
@@ -30,9 +31,52 @@ namespace Minesweeper
             btn = new Button();
         }
 
-        public void Click()
+        //Returns true if you hit a mine
+        public bool Click()
         {
+            if (uncovered) return false;
+            if (mine)
+            {
+                btn.Image = Image.FromFile(Path.Combine(
+                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    "Photos\\Mine.png"));
+                return true;
+            }
+            else
+            {
+                btn.Image = Image.FromFile(Path.Combine(
+                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    "Photos\\Empty.png"));
+                return false;
+            }
             Console.WriteLine("You clicked on me " + X + ":" + Y);
+        }
+
+        // returns the change in flags place, if removed -1, if added +1 if unchanged 0
+        public int Flag()
+        {
+            // If already uncovered return 0 and change nothing
+            if (uncovered) return 0;
+
+            // If it is flagged, remove flag and return -1
+            if (flagged)
+            {
+                flagged = false;
+                btn.Image = Image.FromFile(Path.Combine(
+                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    "Photos\\Square.png"));
+                return -1;
+            }
+
+            // Otherwise place flag and return 1 
+            else
+            {
+                flagged = true;
+                btn.Image = Image.FromFile(Path.Combine(
+                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    "Photos\\Flag.png"));
+                return 1;
+            }
         }
     }
 }

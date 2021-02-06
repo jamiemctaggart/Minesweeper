@@ -11,6 +11,7 @@ namespace Minesweeper
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public int flagsPlaced { get; set; }
         
         public Square[,] GameGrid { get; set; }
 
@@ -22,9 +23,15 @@ namespace Minesweeper
         {
             X = xParam;
             Y = yParam;
-            Console.WriteLine("It made it to the base constructor");
+            flagsPlaced = 0;
             GameGrid = new Square[X, Y];
+            populateGrid();
+           
 
+        }
+
+        public void populateGrid()
+        {
             // Fills array with Squares
             for (int x = 0; x < X; x++)
             {
@@ -33,12 +40,16 @@ namespace Minesweeper
                     GameGrid[x, y] = new Square(x, y);
                 }
             }
-
         }
 
-        internal void ClickSquare(int r, int c)
+        internal void ClickSquare(int x, int y)
         {
-            GameGrid[r, c].Click();
+            GameGrid[x, y].Click();
+        }
+
+        internal void FlagSquare(int x, int y)
+        {
+            flagsPlaced += GameGrid[x, y].Flag();
         }
 
         //This adds the button object to each square
