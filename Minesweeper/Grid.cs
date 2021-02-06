@@ -33,10 +33,10 @@ namespace Minesweeper
 
         //TODO check to make sure the base() works properly at some point
         // Constructor used to set the lenght and width of the grid then calls the superconstructor
-        public Grid(int length, int width) : base()
+        public Grid(int rows, int columns) : base()
         {
-            Columns = length;
-            Rows = width;
+            Columns = rows;
+            Rows = columns;
         }
     }
 }
