@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +26,15 @@ namespace Minesweeper
         public bool firstClick { get; set; }
         public bool gameOver { get; set; }
         public Square[,] GameGrid { get; set; }
+        public Label time { get; set; }
+        public Timer timer { get; set; }
+        public Stopwatch stopwatch { get; set; }
 
 
 
 
         // Constructor used to set the lenght and width of the grid then calls the superconstructor
-        public Grid(int xParam, int yParam, int minesParam)
+        public Grid(int xParam, int yParam, int minesParam, Label timeParam)
         {
             X = xParam;
             Y = yParam;
@@ -40,7 +44,9 @@ namespace Minesweeper
             firstClick = true;
             gameOver = false;
             GameGrid = new Square[X, Y];
+            time = timeParam;
             populateGrid();
+            time.Text = "0";
         }
 
         public void populateGrid()
@@ -90,15 +96,17 @@ namespace Minesweeper
             {
                 populateMines(x, y);
                 firstClick = false;
+                StartTimer();
             }
 
             //Make sure its not flagged
             if (GameGrid[x, y].flagged) return;
-
+            
             // If mine lose the game
             if (GameGrid[x, y].Click())
             {
                 gameOver = true;
+                StopTimer();
                 MessageBox.Show("You Lost!");
                 return;
             }
@@ -116,6 +124,33 @@ namespace Minesweeper
             }
         }
 
+        public void StartTimer()
+        {
+            Console.WriteLine("Start timer");
+            timer = new Timer();
+            timer.Interval = (1000);
+            //Add event every second
+            timer.Tick += Timer_Tick;
+            stopwatch = new Stopwatch();
+            timer.Start();
+            stopwatch.Start();
+        }
+
+
+        public void StopTimer()
+        {
+            timer.Stop();
+            time.Text = stopwatch.Elapsed.Seconds.ToString();
+            stopwatch.Stop();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Console.WriteLine("timer");
+            time.Text = stopwatch.Elapsed.Seconds.ToString();
+            //Application.DoEvents();
+        }
+
         internal void FlagSquare(int x, int y)
         {
             if (gameOver) return;
@@ -131,7 +166,9 @@ namespace Minesweeper
                 minesLeft -= change;
                 if (minesLeft == 0)
                 {
+                    StopTimer();
                     MessageBox.Show("You Won!");
+                    gameOver = true;
                     return;
                 }
             }

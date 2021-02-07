@@ -18,7 +18,6 @@ namespace Minesweeper
 
         // 2D array for Button objects
         public Button[,] btnGrid;
-        public int[] lastDifficultyUsed = new int[] { 16, 16, 40 };
 
         public Form1()
         {
@@ -28,16 +27,8 @@ namespace Minesweeper
         private void populate(int X, int Y, int mine)
         {
             //check if X is 0 as this means to use previous populate list
-            if (X == 0)
-            {
-                grid = new Grid(lastDifficultyUsed[0], lastDifficultyUsed[1], lastDifficultyUsed[2]);
-            }
-            // If you dont need to uset the previous difficulty, then save the current one
-            else
-            {
-                lastDifficultyUsed = new int[] { X, Y, mine };
-            }
-            grid = new Grid(X, Y, mine);
+                        // If you dont need to uset the previous difficulty, then save the current one
+            grid = new Grid(X, Y, mine, label1);
             btnGrid = new Button[grid.X,grid.Y];
 
             //Set panel size

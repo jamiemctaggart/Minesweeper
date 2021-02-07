@@ -33,12 +33,12 @@ namespace Minesweeper
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.difficultyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.easyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.intermediateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,9 +47,8 @@ namespace Minesweeper
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
             // 
             // label2
             // 
@@ -57,9 +56,8 @@ namespace Minesweeper
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(252, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel1
@@ -79,6 +77,21 @@ namespace Minesweeper
             this.menuStrip1.Size = new System.Drawing.Size(299, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // difficultyToolStripMenuItem
             // 
@@ -110,21 +123,6 @@ namespace Minesweeper
             this.expertToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.expertToolStripMenuItem.Text = "Expert";
             this.expertToolStripMenuItem.Click += new System.EventHandler(this.expertToolStripMenuItem_Click);
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
