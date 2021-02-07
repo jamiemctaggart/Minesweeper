@@ -18,17 +18,26 @@ namespace Minesweeper
 
         // 2D array for Button objects
         public Button[,] btnGrid;
-
+        public int[] lastDifficultyUsed = new int[] { 16, 16, 40 };
 
         public Form1()
         {
             InitializeComponent();
-            populate();
         }
 
-        private void populate()
+        private void populate(int X, int Y, int mine)
         {
-            grid = new Grid(9,9, 10);
+            //check if X is 0 as this means to use previous populate list
+            if (X == 0)
+            {
+                grid = new Grid(lastDifficultyUsed[0], lastDifficultyUsed[1], lastDifficultyUsed[2]);
+            }
+            // If you dont need to uset the previous difficulty, then save the current one
+            else
+            {
+                lastDifficultyUsed = new int[] { X, Y, mine };
+            }
+            grid = new Grid(X, Y, mine);
             btnGrid = new Button[grid.X,grid.Y];
 
             int btnSize = 24;
@@ -110,7 +119,6 @@ namespace Minesweeper
                     break;
                 case MouseButtons.Right:
                     grid.FlagSquare(x, y);
-                    //TODO update flags remaining after implementing mines
                     break;
             }
             UpdateMenu();
@@ -137,10 +145,28 @@ namespace Minesweeper
             label2.Text = (grid.mines-grid.flagsPlaced).ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            populate();
+            populate(9, 9, 10);
+        }
+
+        private void intermediateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            populate(16, 16, 40);
+        }
+
+        private void expertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            populate(30, 16, 99);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -92,6 +92,9 @@ namespace Minesweeper
                 firstClick = false;
             }
 
+            //Make sure its not flagged
+            if (GameGrid[x, y].flagged) return;
+
             // If mine lose the game
             if (GameGrid[x, y].Click())
             {
@@ -100,8 +103,7 @@ namespace Minesweeper
                 return;
             }
 
-            // Decrement number of squares left
-            
+                        
             int adjacent = CheckAdjacentMines(x, y);
             if (adjacent != 0)
             {
