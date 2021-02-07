@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,6 +117,35 @@ namespace Minesweeper
             if (adjacent != 0)
             {
                 GameGrid[x, y].btn.Text = adjacent.ToString();
+
+                //This is to change the colour depending on number
+                switch (adjacent)
+                {
+                    case 1:
+                        GameGrid[x, y].btn.ForeColor = Color.Blue;
+                        break;
+                    case 2:
+                        GameGrid[x, y].btn.ForeColor = Color.Green;
+                        break;
+                    case 3:
+                        GameGrid[x, y].btn.ForeColor = Color.Red;
+                        break;
+                    case 4:
+                        GameGrid[x, y].btn.ForeColor = Color.Purple;
+                        break;
+                    case 5:
+                        GameGrid[x, y].btn.ForeColor = Color.Maroon;
+                        break;
+                    case 6:
+                        GameGrid[x, y].btn.ForeColor = Color.Turquoise;
+                        break;
+                    case 7:
+                        GameGrid[x, y].btn.ForeColor = Color.Black;
+                        break;
+                    case 8:
+                        GameGrid[x, y].btn.ForeColor = Color.Gray;
+                        break;
+                }
                 //TODO add font and number specific colour
             }
             else

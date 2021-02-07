@@ -22,6 +22,7 @@ namespace Minesweeper
         public Form1()
         {
             InitializeComponent();
+            populate(9, 9, 10);
         }
 
         private void populate(int X, int Y, int mine)
