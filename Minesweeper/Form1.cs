@@ -40,9 +40,13 @@ namespace Minesweeper
             grid = new Grid(X, Y, mine);
             btnGrid = new Button[grid.X,grid.Y];
 
+            //Set panel size
             int btnSize = 24;
             panel1.Height = btnSize * grid.Y;
             panel1.Width = btnSize * grid.X;
+
+            //Set form size
+            this.Size = new Size(btnSize * grid.X + 50, btnSize * grid.Y + 100);
 
             //Print buttons to screen and assign values
             for (int x = 0; x < grid.X; x++)

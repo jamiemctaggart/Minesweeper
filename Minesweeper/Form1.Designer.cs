@@ -53,18 +53,20 @@ namespace Minesweeper
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(481, 27);
+            this.label2.Location = new System.Drawing.Point(252, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "label2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(16, 142);
+            this.panel1.Location = new System.Drawing.Point(16, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(500, 500);
+            this.panel1.Size = new System.Drawing.Size(265, 334);
             this.panel1.TabIndex = 3;
             // 
             // menuStrip1
@@ -74,7 +76,7 @@ namespace Minesweeper
             this.difficultyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(537, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(299, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -128,7 +130,7 @@ namespace Minesweeper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 668);
+            this.ClientSize = new System.Drawing.Size(299, 394);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
