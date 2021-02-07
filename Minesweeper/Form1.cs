@@ -24,12 +24,11 @@ namespace Minesweeper
         {
             InitializeComponent();
             populate();
-
         }
 
         private void populate()
         {
-            grid = new Grid(16, 16, 40);
+            grid = new Grid(9,9, 10);
             btnGrid = new Button[grid.X,grid.Y];
 
             int btnSize = 24;
@@ -75,7 +74,7 @@ namespace Minesweeper
                 }
 
             }
-
+            UpdateMenu();
             //After creating all the buttons call the grid functiont to merge them with each square object
             grid.Merge(btnGrid);
         }
@@ -114,6 +113,7 @@ namespace Minesweeper
                     //TODO update flags remaining after implementing mines
                     break;
             }
+            UpdateMenu();
         }
 
         // This is specifically for revealing nearby squares
@@ -128,6 +128,19 @@ namespace Minesweeper
             int y = point.Y;
 
             grid.RevealSurroundings(x, y);
+
+            UpdateMenu();
+        }
+
+        private void UpdateMenu()
+        {
+            label2.Text = (grid.mines-grid.flagsPlaced).ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            populate();
         }
     }
 }

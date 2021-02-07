@@ -21,7 +21,9 @@ namespace Minesweeper
         public int Y { get; set; }
         public int flagsPlaced { get; set; }
         public int mines { get; set; }
+        public int minesLeft { get; set; }
         public bool firstClick { get; set; }
+        public bool gameOver { get; set; }
         public Square[,] GameGrid { get; set; }
 
 
@@ -34,7 +36,9 @@ namespace Minesweeper
             Y = yParam;
             flagsPlaced = 0;
             mines = minesParam;
+            minesLeft = minesParam;
             firstClick = true;
+            gameOver = false;
             GameGrid = new Square[X, Y];
             populateGrid();
         }
@@ -72,22 +76,32 @@ namespace Minesweeper
                     }
                 }
                 if (!safe) continue;
-                GameGrid[xNew, yNew].PlaceMine();
-                minesToPlace--;
+                if (GameGrid[xNew, yNew].PlaceMine())
+                    minesToPlace--;
             }
         }
 
         internal void ClickSquare(int x, int y)
         {
+            if (gameOver) return;
+
+            
             if (firstClick)
             {
                 populateMines(x, y);
                 firstClick = false;
             }
 
-            //TODO instead of return make this end the game
-            if (GameGrid[x, y].Click()) return;
+            // If mine lose the game
+            if (GameGrid[x, y].Click())
+            {
+                gameOver = true;
+                MessageBox.Show("You Lost!");
+                return;
+            }
 
+            // Decrement number of squares left
+            
             int adjacent = CheckAdjacentMines(x, y);
             if (adjacent != 0)
             {
@@ -102,7 +116,24 @@ namespace Minesweeper
 
         internal void FlagSquare(int x, int y)
         {
-            flagsPlaced += GameGrid[x, y].Flag();
+            if (gameOver) return;
+
+            int change = GameGrid[x, y].Flag();
+            flagsPlaced += change;
+
+            if (GameGrid[x,y].mine)
+            {
+                // This looks more confusing than it is, all it does is if you flag a location that has a mine,
+                // take away one mine, but RE ADD if you remove the flag, when the mines variable reaches 
+                // zero you have won the game and flagged all the mines.
+                minesLeft -= change;
+                if (minesLeft == 0)
+                {
+                    MessageBox.Show("You Won!");
+                    return;
+                }
+            }
+
         }
 
         //This adds the button object to each square
@@ -149,10 +180,9 @@ namespace Minesweeper
 
         public void RevealSurroundings(int xPos, int yPos)
         {
-            Console.WriteLine("Testing1-----------------------");
+            if (gameOver) return;
             if (CheckAdjacentMines(xPos, yPos) != CheckAdjacentFlags(xPos, yPos))
                 return;
-            Console.WriteLine("Testing2");
             // Checks it isnt flagged or still covered
             if (GameGrid[xPos, yPos].flagged || !GameGrid[xPos, yPos].uncovered) return;
 
@@ -167,7 +197,6 @@ namespace Minesweeper
                     if (GameGrid[x, y].flagged) continue;
                     if (GameGrid[x, y].uncovered) continue;
                     ClickSquare(x, y);
-                    Console.WriteLine("Testing3");
                 }
             }
         }
