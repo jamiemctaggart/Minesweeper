@@ -43,6 +43,7 @@ namespace Minesweeper
                     Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
                     "Photos\\Mine.png"));
                 return true;
+                btn.DoubleClick += Btn_DoubleClick;
             }
             else
             {
@@ -52,6 +53,12 @@ namespace Minesweeper
                 return false;
             }
         }
+
+        private void Btn_DoubleClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
 
         // returns the change in flags place, if removed -1, if added +1 if unchanged 0
         public int Flag()
@@ -88,5 +95,7 @@ namespace Minesweeper
             mine = true;
             return true;
         }
+
+        
     }
 }

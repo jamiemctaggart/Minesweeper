@@ -64,7 +64,18 @@ namespace Minesweeper
 
         internal void ClickSquare(int x, int y)
         {
-            GameGrid[x, y].Click();
+            //TODO instead of return make this end the game
+            if (GameGrid[x, y].Click()) return;
+            int adjacent = CheckAdjacentMines(x, y);
+            if (adjacent != 0)
+            {
+                GameGrid[x, y].btn.Text = adjacent.ToString();
+                //TODO add font and number specific colour
+            }
+            else
+            {
+                RevealSurroundings(x, y);
+            }
         }
 
         internal void FlagSquare(int x, int y)
@@ -80,6 +91,58 @@ namespace Minesweeper
                 for (int y = 0; y < Y; y++)
                 {
                     GameGrid[x, y].btn = btnGrid[x, y];
+                }
+            }
+        }
+
+        public int CheckAdjacentMines(int xPos, int yPos)
+        {
+            int count = 0;
+            for (int x = xPos - 1; x <= xPos + 1; x++)
+            {
+                if (x < 0 || x >= X) continue;
+                for (int y = yPos - 1; y <= yPos + 1; y++)
+                {
+                    if (y < 0 || y >= Y) continue;
+                    if (GameGrid[x, y].mine) count++;
+                }
+            }
+            return count;
+        }
+
+        public int CheckAdjacentFlags(int xPos, int yPos)
+        {
+            int count = 0;
+            for (int x = xPos - 1; x <= xPos + 1; x++)
+            {
+                if (x < 0 || x >= X) continue;
+                for (int y = yPos - 1; y <= yPos + 1; y++)
+                {
+                    if (y < 0 || y >= Y) continue;
+                    if (GameGrid[x, y].flagged) count++;
+                }
+            }
+            return count;
+        }
+
+        public void RevealSurroundings(int xPos, int yPos)
+        {
+            Console.WriteLine("Testing1-----------------------");
+            if (CheckAdjacentMines(xPos, yPos) != CheckAdjacentFlags(xPos, yPos))
+                return;
+            Console.WriteLine("Testing2");
+            // Checks it isnt flagged or still covered
+            if (GameGrid[xPos, yPos].flagged || !GameGrid[xPos, yPos].uncovered) return;
+            for (int x = xPos - 1; x <= xPos + 1; x++)
+            {
+                if (x < 0 || x >= X) continue;
+                for (int y = yPos - 1; y <= yPos + 1; y++)
+                {
+                    if (y == yPos && x == xPos) continue;
+                    if (y < 0 || y >= Y) continue;
+                    if (GameGrid[x, y].flagged || !GameGrid[x, y].uncovered) continue;
+                    ClickSquare(x, y);
+                    Console.WriteLine("Testing3");
                 }
             }
         }

@@ -44,10 +44,14 @@ namespace Minesweeper
                     btnGrid[x, y] = new Button();
                     btnGrid[x, y].Height = btnSize;
                     btnGrid[x, y].Width = btnSize;
+
+                    
                     //Click Event
                     //For some unknown reason it needs to mouseup otherwise right click wont work
                     //This took me about half an hour to figure out lmao
                     btnGrid[x, y].MouseUp += new MouseEventHandler(Square_Click);
+
+                                        
 
                     //Add button to panel
                     panel1.Controls.Add(btnGrid[x, y]);
@@ -76,32 +80,54 @@ namespace Minesweeper
             grid.Merge(btnGrid);
         }
 
+        // This will click the square, it also removes the mouse event
+        // and replaces it with a new one for revealing all adjacent squares
         private void Square_Click(object sender, MouseEventArgs e)
         {
             //casts as a Button
             Button btn = (Button)sender;
+                            //Casts as a point as it will always be a point
+            Point point = (Point)btn.Tag;
 
+            // Extract x and y values from point object
+            int x = point.X;
+            int y = point.Y;
+
+            
+            // Either places flag if right click or reveals if left click
+            switch(e.Button)
+            {
+                case MouseButtons.Left:
+                    grid.ClickSquare(x, y);
+
+                    // it is important to remove the handler to uncover a square 
+                    // after it has been left clicked, this allows us to make
+                    // a new handler for revealing all adjacent squares
+                    btnGrid[x, y].MouseUp -= new MouseEventHandler(Square_Click);
+
+                    // Adds new handler for reveal all function
+                    btnGrid[x, y].MouseClick += Form1_MouseClick;
+
+                    break;
+                case MouseButtons.Right:
+                    grid.FlagSquare(x, y);
+                    //TODO update flags remaining after implementing mines
+                    break;
+            }
+        }
+
+        // This is specifically for revealing nearby squares
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("Test");
+            Button btn = (Button)sender;
             //Casts as a point as it will always be a point
             Point point = (Point)btn.Tag;
 
             int x = point.X;
             int y = point.Y;
 
-            switch(e.Button)
-            {
-                case MouseButtons.Left:
-                    grid.ClickSquare(x, y);
-                    break;
-                case MouseButtons.Right:
-                    grid.FlagSquare(x, y);
-                    //TODO update flags remaining after implementing mines
-                    break;
-
-            }
-
-                       
-           
-            
+            grid.RevealSurroundings(x, y);
         }
     }
 }
