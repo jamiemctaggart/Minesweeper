@@ -16,6 +16,7 @@ namespace Minesweeper
         public bool mine { get; set; }
         public bool uncovered { get; set; }
         public bool flagged { get; set; }
+        
 
         public Button btn { get; set; }
 

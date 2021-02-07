@@ -21,6 +21,7 @@ namespace Minesweeper
         public int Y { get; set; }
         public int flagsPlaced { get; set; }
         public int mines { get; set; }
+        public bool firstClick { get; set; }
         public Square[,] GameGrid { get; set; }
 
 
@@ -33,9 +34,9 @@ namespace Minesweeper
             Y = yParam;
             flagsPlaced = 0;
             mines = minesParam;
+            firstClick = true;
             GameGrid = new Square[X, Y];
             populateGrid();
-            populateMines();
         }
 
         public void populateGrid()
@@ -50,22 +51,43 @@ namespace Minesweeper
             }
         }
 
-        public void populateMines()
+        public void populateMines(int xPos, int yPos)
         {
             Random rnd = new Random();
             int minesToPlace = mines;
             while (minesToPlace > 0)
             {
-                int x = rnd.Next(X);
-                int y = rnd.Next(Y);
-                if (GameGrid[x, y].PlaceMine()) minesToPlace--;
+                int xNew = rnd.Next(X);
+                int yNew = rnd.Next(Y);
+                // Make sure it isnt the first click position
+                // and isn't adjacent to the first click
+                bool safe = true;
+                for (int x = xNew - 1; x <= xNew + 1; x++)
+                {
+                    if (x < 0 || x >= X) continue;
+                    for (int y = yNew - 1; y <= yNew + 1; y++)
+                    {
+                        if (y < 0 || y >= Y) continue;
+                        if (x == xPos && y == yPos) safe = false;
+                    }
+                }
+                if (!safe) continue;
+                GameGrid[xNew, yNew].PlaceMine();
+                minesToPlace--;
             }
         }
 
         internal void ClickSquare(int x, int y)
         {
+            if (firstClick)
+            {
+                populateMines(x, y);
+                firstClick = false;
+            }
+
             //TODO instead of return make this end the game
             if (GameGrid[x, y].Click()) return;
+
             int adjacent = CheckAdjacentMines(x, y);
             if (adjacent != 0)
             {
@@ -133,6 +155,8 @@ namespace Minesweeper
             Console.WriteLine("Testing2");
             // Checks it isnt flagged or still covered
             if (GameGrid[xPos, yPos].flagged || !GameGrid[xPos, yPos].uncovered) return;
+
+           
             for (int x = xPos - 1; x <= xPos + 1; x++)
             {
                 if (x < 0 || x >= X) continue;
@@ -140,7 +164,8 @@ namespace Minesweeper
                 {
                     if (y == yPos && x == xPos) continue;
                     if (y < 0 || y >= Y) continue;
-                    if (GameGrid[x, y].flagged || !GameGrid[x, y].uncovered) continue;
+                    if (GameGrid[x, y].flagged) continue;
+                    if (GameGrid[x, y].uncovered) continue;
                     ClickSquare(x, y);
                     Console.WriteLine("Testing3");
                 }
