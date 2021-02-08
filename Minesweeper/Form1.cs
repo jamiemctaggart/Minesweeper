@@ -22,7 +22,33 @@ namespace Minesweeper
         public Form1()
         {
             InitializeComponent();
-            populate(9, 9, 10);
+            menu();
+        }
+
+        private void menu()
+        {
+            panel1.Controls.Clear();
+            panel1.Height = 500;
+            panel1.Width = 500;
+            this.Size = new Size(200, 200);
+            Button easy = new Button();
+            easy.MouseUp += EasyClick;
+            easy.Text = "Easy";
+            easy.Location = new Point(40, 0);
+            panel1.Controls.Add(easy);
+
+            Button intermediate = new Button();
+            intermediate.MouseUp += IntermediateClick;
+            intermediate.Text = "Intermediate";
+            intermediate.Location = new Point(40, 30);
+            panel1.Controls.Add(intermediate);
+
+            Button expert = new Button();
+            expert.MouseUp += ExpertClick;
+            expert.Text = "Expert";
+            expert.Location = new Point(40, 60);
+            panel1.Controls.Add(expert);
+
         }
 
         private void populate(int X, int Y, int mine)
@@ -142,19 +168,19 @@ namespace Minesweeper
         }
 
         
-        private void easyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EasyClick(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
             populate(9, 9, 10);
         }
 
-        private void intermediateToolStripMenuItem_Click(object sender, EventArgs e)
+        private void IntermediateClick(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
             populate(16, 16, 40);
         }
 
-        private void expertToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExpertClick(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
             populate(30, 16, 99);
@@ -163,6 +189,11 @@ namespace Minesweeper
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void menuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu();
         }
     }
 }
