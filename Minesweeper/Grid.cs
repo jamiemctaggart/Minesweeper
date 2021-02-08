@@ -158,7 +158,7 @@ namespace Minesweeper
         {
             Console.WriteLine("Start timer");
             timer = new Timer();
-            timer.Interval = (1000);
+            timer.Interval = (500);
             //Add event every second
             timer.Tick += Timer_Tick;
             stopwatch = new Stopwatch();
@@ -170,8 +170,8 @@ namespace Minesweeper
         public void StopTimer()
         {
             timer.Stop();
-            time.Text = stopwatch.Elapsed.Seconds.ToString();
             stopwatch.Stop();
+            time.Text = stopwatch.Elapsed.Seconds.ToString();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
