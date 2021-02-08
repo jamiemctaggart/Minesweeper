@@ -195,5 +195,16 @@ namespace Minesweeper
         {
             menu();
         }
+
+        private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rules:" +
+                "\n1. Click on a square" +
+                "\n2. The number on a square is the number of adjacent mines (Blank = 0)" +
+                "\n3. Right click a square if you know it is a mine" +
+                "\n4. When you have cleared all the mines you have won the game!" +
+                "\n\nOptional:" +
+                "\n1. double clicking on an uncovered square will reveal all adjacent squares");
+        }
     }
 }
