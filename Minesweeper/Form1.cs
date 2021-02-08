@@ -30,23 +30,23 @@ namespace Minesweeper
             panel1.Controls.Clear();
             panel1.Height = 500;
             panel1.Width = 500;
-            this.Size = new Size(200, 200);
+            this.Size = new Size(260, 200);
             Button easy = new Button();
             easy.MouseUp += EasyClick;
             easy.Text = "Easy";
-            easy.Location = new Point(40, 0);
+            easy.Location = new Point(70, 0);
             panel1.Controls.Add(easy);
 
             Button intermediate = new Button();
             intermediate.MouseUp += IntermediateClick;
             intermediate.Text = "Intermediate";
-            intermediate.Location = new Point(40, 30);
+            intermediate.Location = new Point(70, 30);
             panel1.Controls.Add(intermediate);
 
             Button expert = new Button();
             expert.MouseUp += ExpertClick;
             expert.Text = "Expert";
-            expert.Location = new Point(40, 60);
+            expert.Location = new Point(70, 60);
             panel1.Controls.Add(expert);
 
         }
