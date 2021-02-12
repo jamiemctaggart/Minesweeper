@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace Minesweeper
         public Form1()
         {
             InitializeComponent();
+             fileIO.readSave();
             menu();
         }
 
@@ -95,13 +97,7 @@ namespace Minesweeper
                     btnGrid[x, y].TabStop = false;
                     btnGrid[x, y].FlatStyle = FlatStyle.Flat;
                     btnGrid[x, y].FlatAppearance.BorderSize = 0;
-
-                    //TODO add image to button
-                    btnGrid[x, y].Image = Image.FromFile(
-                        Path.Combine(
-                            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                            "Photos\\Square.png")
-                        );
+                    btnGrid[x, y].Image = (Image) Properties.Resources.Square;
                 }
 
             }
@@ -205,6 +201,15 @@ namespace Minesweeper
                 "\n4. When you have cleared all the mines you have won the game!" +
                 "\n\nOptional:" +
                 "\n1. double clicking on an uncovered square will reveal all adjacent squares");
+        }
+
+        private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[] highscores = fileIO.readSave();
+            MessageBox.Show("Highscores:" +
+                "\nEasy: " + highscores[0] +
+                "\nIntermediate: " + highscores[1] +
+                "\nExpert: " + highscores[2]);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,6 @@ namespace Minesweeper
         public bool mine { get; set; }
         public bool uncovered { get; set; }
         public bool flagged { get; set; }
-        
 
         public Button btn { get; set; }
 
@@ -40,17 +40,13 @@ namespace Minesweeper
             uncovered = true;
             if (mine)
             {
-                btn.Image = Image.FromFile(Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                    "Photos\\Mine.png"));
+                btn.Image = (Image) Properties.Resources.Mine;
                 return true;
-                btn.DoubleClick += Btn_DoubleClick;
             }
             else
             {
-                btn.Image = Image.FromFile(Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                    "Photos\\Empty.png"));
+                btn.Image = (Image) Properties.Resources.Empty;
+                btn.DoubleClick += Btn_DoubleClick;
                 return false;
             }
         }
@@ -71,9 +67,7 @@ namespace Minesweeper
             if (flagged)
             {
                 flagged = false;
-                btn.Image = Image.FromFile(Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                    "Photos\\Square.png"));
+                btn.Image = (Image) Properties.Resources.Square;
                 return -1;
             }
 
@@ -81,9 +75,7 @@ namespace Minesweeper
             else
             {
                 flagged = true;
-                btn.Image = Image.FromFile(Path.Combine(
-                    Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
-                    "Photos\\Flag.png"));
+                btn.Image = (Image) Properties.Resources.Flag;
                 return 1;
             }
         }

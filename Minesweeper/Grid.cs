@@ -154,11 +154,10 @@ namespace Minesweeper
             }
         }
 
-        public void StartTimer()
-        {
+        public void StartTimer() { 
             Console.WriteLine("Start timer");
             timer = new Timer();
-            timer.Interval = (500);
+            timer.Interval = (1000);
             //Add event every second
             timer.Tick += Timer_Tick;
             stopwatch = new Stopwatch();
@@ -176,9 +175,7 @@ namespace Minesweeper
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("timer");
-            time.Text = stopwatch.Elapsed.Seconds.ToString();
-            //Application.DoEvents();
+            time.Text = (stopwatch.Elapsed.Seconds + stopwatch.Elapsed.Minutes * 60).ToString();
         }
 
         internal void FlagSquare(int x, int y)
@@ -196,13 +193,50 @@ namespace Minesweeper
                 minesLeft -= change;
                 if (minesLeft == 0)
                 {
-                    StopTimer();
-                    MessageBox.Show("You Won!");
-                    gameOver = true;
+                    WinGame();
                     return;
                 }
             }
+        }
 
+        public void WinGame()
+        {
+            StopTimer();
+            MessageBox.Show("You Won in " + time.Text + "!");
+            int score = Int32.Parse(time.Text);
+            gameOver = true;
+            int[] highscores = fileIO.readSave();
+            switch(mines)
+            {
+                case 10:
+                    if (highscores[0] < score || highscores[0] == 0)
+                    {
+                        highscores[0] = score;
+                        MessageBox.Show("You Won in " + time.Text + "!" +
+                            "\nThis is the new Highscore!");
+                    }
+                    else MessageBox.Show("You Won in " + time.Text + "!");
+                    break;
+                case 40:
+                    if (highscores[1] < score || highscores[1] == 0)
+                    {
+                        highscores[1] = score;
+                        MessageBox.Show("You Won in " + time.Text + "!" +
+                            "\nThis is the new Highscore!");
+                    }
+                    else MessageBox.Show("You Won in " + time.Text + "!");
+                    break;
+                case 99:
+                    if (highscores[2] < score || highscores[2] == 0)
+                    {
+                        highscores[2] = score;
+                        MessageBox.Show("You Won in " + time.Text + "!" +
+                            "\nThis is the new Highscore!");
+                    }
+                    else MessageBox.Show("You Won in " + time.Text + "!");
+                    break;
+            }
+            fileIO.setSave(highscores);
         }
 
         //This adds the button object to each square
