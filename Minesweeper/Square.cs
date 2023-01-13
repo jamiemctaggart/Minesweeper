@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Minesweeper
 {
     public class Square
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
         public bool mine { get; set; }
         public bool uncovered { get; set; }
         public bool flagged { get; set; }
@@ -24,8 +18,8 @@ namespace Minesweeper
         // Constructor to set square properties
         public Square(int x, int y)
         {
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
             mine = false;
             uncovered = false;
             flagged = false;
@@ -35,7 +29,7 @@ namespace Minesweeper
         //Returns true if you hit a mine
         public bool Click()
         {
-            Console.WriteLine("You clicked on me " + X + ":" + Y);
+            Console.WriteLine("You clicked on me " + x + ":" + y);
             if (uncovered || flagged) return false;
             uncovered = true;
             if (mine)
